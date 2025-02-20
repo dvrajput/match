@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Player</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://content.jwplatform.com/libraries/SAHhwvZq.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      height: 100vh;
+    }
+    .jwplayer {
+      position: absolute !important
+    }
+    .jwplayer.jw-flag-aspect-mode {
+      min-height: 100%;
+      max-height: 100%
+    }
+  </style>
+</head>
+<body>
+  <div id="jwplayerDiv"></div>
+  <script type="text/javascript">
+    const manifest = "https://aba5sdmaaaaaaaamdgp3ryzabcel7.otte.live.cf.ww.aiv-cdn.net/pdx-nitro/live/clients/dash/enc/1koccf0pf1/out/v1/190f1d69a3d5467f8fb7d9df4339bc49/cenc.mpd";
+    const keyId = "cb8daf414566aa17d06f8294f3f3b444";
+    const key = "89d58908a57d70ef87bf16c9b5821ca2";
+
+    function waitForJWPlayer(callback) {
+      if (typeof jwplayer === 'function') {
+        callback();
+      } else {
+        setTimeout(() => waitForJWPlayer(callback), 100);
+      }
+    }
+
+    waitForJWPlayer(() => {
+      const playerConfig = {
+        file: manifest,
+        autostart: true,
+        stretching: "uniform",
+        width: "100%",
+        height: "100%",
+        type: "dash",
+        drm: {
+          clearkey: {
+            keyId: keyId,
+            key: key
+          }
+        }
+      };
+      jwplayer("jwplayerDiv").setup(playerConfig);
+    });
+  </script>
+</body>
+</html>
